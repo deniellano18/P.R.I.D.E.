@@ -591,3 +591,13 @@ footer {
         text-align: center;
     }
 }
+
+@media (min-width: 769px) {
+    nav {
+        display: flex !important; /* Forces nav to reappear on desktop */
+        position: static !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+        background: transparent !important;
+    }
+}
