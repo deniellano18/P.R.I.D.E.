@@ -17,9 +17,9 @@
     --nav-height: 80px;
     
     /* Glassmorphism */
-    --glass-bg: rgba(30, 41, 59, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-bg: rgba(30, 41, 59, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -58,11 +58,12 @@ body {
 /* Glassmorphism Utility */
 .glass-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     border-radius: 16px;
+    transition: all 0.4s ease;
 }
 
 /* Buttons */
@@ -140,8 +141,35 @@ body {
     letter-spacing: 1px;
 }
 
-.logo-icon {
-    color: var(--clr-cyan);
+.logo-img-wrapper {
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--clr-cyan);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-img-wrapper.small {
+    width: 32px;
+    height: 32px;
+    border-width: 1px;
+}
+
+.footer-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 nav {
@@ -303,8 +331,9 @@ nav a:not(.btn):hover::after {
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 240, 255, 0.15);
+    border-color: rgba(0, 240, 255, 0.3);
 }
 
 .card-icon {
@@ -590,4 +619,33 @@ footer {
         gap: 1rem;
         text-align: center;
     }
+}
+
+/* Entrance Animations */
+.scroll-animate {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--anim-delay, 0s);
+}
+
+.animate-slide-up {
+    transform: translateY(40px);
+}
+
+.animate-fade-in {
+    transform: scale(0.95);
+}
+
+.animate-slide-right {
+    transform: translateX(-40px);
+}
+
+.animate-slide-left {
+    transform: translateX(40px);
+}
+
+.scroll-animate.is-visible {
+    opacity: 1;
+    transform: translate(0) scale(1);
 }
