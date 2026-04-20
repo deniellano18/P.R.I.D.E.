@@ -85,4 +85,53 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.scroll-animate').forEach((element) => {
         observer.observe(element);
     });
+
+    // Handle Form Submission
+    const demoForm = document.getElementById('demo-form');
+    if (demoForm) {
+        demoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = demoForm.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+
+            const requestData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                hectares: document.getElementById('hectares').value
+            };
+
+            try {
+                const response = await fetch('/api/request-demo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    demoForm.reset();
+                    const successDiv = document.getElementById('form-success');
+                    successDiv.textContent = 'Thank you! Your demo request has been received.';
+                    successDiv.style.display = 'block';
+                    setTimeout(() => {
+                        successDiv.style.display = 'none';
+                    }, 5000);
+                } else {
+                    alert('Error submitting request: ' + (result.message || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Error submitting request. Please ensure the backend server is running.');
+                console.error('Error:', error);
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
 });
